@@ -556,6 +556,10 @@ def get_save_image_path(filename_prefix: str, output_dir: str, image_width=0, im
         logging.error(err)
         raise Exception(err)
 
+    subfolder = os.path.relpath(full_output_folder, output_dir)
+    if subfolder == ".":
+        subfolder = ""
+
     try:
         counter = max(filter(lambda a: os.path.normcase(a[1][:-1]) == os.path.normcase(filename) and a[1][-1] == "_", map(map_filename, os.listdir(full_output_folder))))[0] + 1
     except ValueError:
